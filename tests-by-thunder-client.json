@@ -1,28 +1,262 @@
 {
     "client": "Thunder Client",
     "collectionName": "projeto19-drivenpass",
-    "dateExported": "2022-07-16T22:30:48.169Z",
+    "dateExported": "2022-07-16T23:45:55.835Z",
     "version": "1.1",
-    "folders": [],
+    "folders": [
+        {
+            "_id": "af94d22a-7590-4f66-8f52-c7990a13af19",
+            "name": "sign-up",
+            "containerId": "",
+            "created": "2022-07-16T22:51:21.934Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "9bf50eb8-b2a1-4e9a-9958-8c61a8fc88a6",
+            "name": "sign-in",
+            "containerId": "",
+            "created": "2022-07-16T23:11:08.397Z",
+            "sortNum": 20000
+        }
+    ],
     "requests": [
         {
             "_id": "ecfb88a1-8c7d-4218-8ac5-46b90822b66c",
             "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
-            "containerId": "",
-            "name": "/sign-up",
+            "containerId": "af94d22a-7590-4f66-8f52-c7990a13af19",
+            "name": "JOI email",
             "url": "http://localhost:5000/sign-up",
             "method": "POST",
             "sortNum": 10000,
             "created": "2022-07-16T22:07:23.828Z",
-            "modified": "2022-07-16T22:11:39.628Z",
+            "modified": "2022-07-16T22:53:02.095Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n    \"email\": \"carlos@carlos.com\",\n    \"password\": \"1234567890\"\n}",
+                "raw": "{\n    \"email\": \"antonio\",\n    \"password\": \"1234567890\"\n}",
                 "form": []
             },
-            "tests": []
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"email\" must be a valid email"
+                }
+            ]
+        },
+        {
+            "_id": "7bb69533-a042-4b56-b39c-f6e4b686b59a",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "9bf50eb8-b2a1-4e9a-9958-8c61a8fc88a6",
+            "name": "JOI email",
+            "url": "http://localhost:5000/sign-in",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2022-07-16T23:12:00.964Z",
+            "modified": "2022-07-16T23:19:28.283Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"antonio\",\n    \"password\": \"1234567890\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"email\" must be a valid email"
+                }
+            ]
+        },
+        {
+            "_id": "f788074f-5f10-4c81-be02-4dc7438247e0",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "af94d22a-7590-4f66-8f52-c7990a13af19",
+            "name": "JOI password",
+            "url": "http://localhost:5000/sign-up",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2022-07-16T22:53:47.518Z",
+            "modified": "2022-07-16T22:54:53.064Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"antonio@antonio.com\",\n    \"password\": \"123456789\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"password\" length must be at least 10 characters long"
+                }
+            ]
+        },
+        {
+            "_id": "4c7436bc-6172-43c1-bba9-6b90722daa64",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "9bf50eb8-b2a1-4e9a-9958-8c61a8fc88a6",
+            "name": "JOI password",
+            "url": "http://localhost:5000/sign-in",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2022-07-16T23:12:05.523Z",
+            "modified": "2022-07-16T23:19:34.292Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"antonio@antonio.com\",\n    \"password\": \"123456789\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"password\" length must be at least 10 characters long"
+                }
+            ]
+        },
+        {
+            "_id": "d8d9b795-f1be-48df-8b15-6e939b687bc0",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "af94d22a-7590-4f66-8f52-c7990a13af19",
+            "name": "Duplicate",
+            "url": "http://localhost:5000/sign-up",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2022-07-16T22:58:57.688Z",
+            "modified": "2022-07-16T22:59:39.721Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"antonio@antonio.com\",\n    \"password\": \"1234567890\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "Email has been already registered"
+                }
+            ]
+        },
+        {
+            "_id": "d1cca18b-2359-4ecd-a9a6-ce7976fe16ae",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "9bf50eb8-b2a1-4e9a-9958-8c61a8fc88a6",
+            "name": "Authentication email",
+            "url": "http://localhost:5000/sign-in",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2022-07-16T23:18:48.626Z",
+            "modified": "2022-07-16T23:30:23.601Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"antoni@antonio.com\",\n    \"password\": \"1234567890\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "Email not found"
+                }
+            ]
+        },
+        {
+            "_id": "190ab6e7-d2f0-498a-afc8-dfbd1041f90d",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "af94d22a-7590-4f66-8f52-c7990a13af19",
+            "name": "Insert",
+            "url": "http://localhost:5000/sign-up",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2022-07-16T23:00:38.385Z",
+            "modified": "2022-07-16T23:09:27.334Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"{{#email}}\",\n    \"password\": \"1234567890\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "201"
+                }
+            ]
+        },
+        {
+            "_id": "a3a2d2fd-1847-4da3-acbd-c6031c9af953",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "9bf50eb8-b2a1-4e9a-9958-8c61a8fc88a6",
+            "name": "Authentication password",
+            "url": "http://localhost:5000/sign-in",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2022-07-16T23:30:51.597Z",
+            "modified": "2022-07-16T23:31:29.971Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"antonio@antonio.com\",\n    \"password\": \"1234567892\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "Invalid password"
+                }
+            ]
+        },
+        {
+            "_id": "9dae4333-731c-4ed3-a845-3130c6f0e28b",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "9bf50eb8-b2a1-4e9a-9958-8c61a8fc88a6",
+            "name": "Authenticated",
+            "url": "http://localhost:5000/sign-in",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2022-07-16T23:32:07.174Z",
+            "modified": "2022-07-16T23:44:57.826Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"antonio@antonio.com\",\n    \"password\": \"1234567890\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
         }
-    ]
+    ],
+    "settings": {
+        "headers": [],
+        "tests": []
+    }
 }

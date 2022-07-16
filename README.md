@@ -38,4 +38,13 @@ $ npm run dev
         "email": "antonio@antonio.com",
         "password": "1234567890"
     }
+
+
+- POST /sign-in
+    - Route to sign in
+    - headers: {}
+    - body: {
+        "email": "antonio@antonio.com",
+        "password": "1234567890"
+    }
 ```
