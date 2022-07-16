@@ -1,0 +1,28 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "projeto19-drivenpass",
+    "dateExported": "2022-07-16T22:30:48.169Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "ecfb88a1-8c7d-4218-8ac5-46b90822b66c",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "",
+            "name": "/sign-up",
+            "url": "http://localhost:5000/sign-up",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2022-07-16T22:07:23.828Z",
+            "modified": "2022-07-16T22:11:39.628Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"carlos@carlos.com\",\n    \"password\": \"1234567890\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
