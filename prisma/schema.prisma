@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model cards {
+  id             Int       @id @default(autoincrement())
+  number         String
+  name           String
+  securityCode   String
+  expirationDate String
+  password       String
+  type           String
+  registerId     Int
+  registers      registers @relation(fields: [registerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model category {
+  id        Int         @id @default(autoincrement())
+  name      String
+  registers registers[]
+}
+
+model credential {
+  id         Int       @id @default(autoincrement())
+  url        String
+  user       String
+  password   String
+  registerId Int
+  registers  registers @relation(fields: [registerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model registers {
+  id          Int           @id @default(autoincrement())
+  title       String
+  userId      Int
+  categoryId  Int
+  category    category      @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users       users         @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cards       cards[]
+  credential  credential[]
+  secure_note secure_note[]
+  wifi        wifi[]
+}
+
+model secure_note {
+  id         Int       @id @default(autoincrement())
+  note       String
+  registerId Int
+  registers  registers @relation(fields: [registerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tokens {
+  id     Int    @id @default(autoincrement())
+  token  String
+  userId Int
+  users  users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id        Int         @id @default(autoincrement())
+  email     String
+  password  String
+  registers registers[]
+  tokens    tokens[]
+}
+
+model wifi {
+  id         Int       @id @default(autoincrement())
+  name       String
+  password   String
+  registerId Int
+  registers  registers @relation(fields: [registerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
