@@ -1,11 +1,8 @@
 import { Router } from "express";
-import {auth} from "../controllers/authController.js";
-// import { validateSchemaMiddleware } from "../middlewares/validateSchema.js";
-//import { questionSchema } from "../schemas/questionSchema.js";
+import {signUpPOST} from "../controllers/authController.js";
 
 const authRouter = Router();
 
-// authRouter.post("/questions", validateSchemaMiddleware(questionSchema), create);
-authRouter.post("/auth", auth);
+authRouter.post("/sign-up", signUpPOST);
 
 export default authRouter;

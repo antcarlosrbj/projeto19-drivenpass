@@ -1,7 +1,7 @@
-/* import Joi from "joi";
-import { CreateQuestionData } from "../services/authService.js";
+import Joi from "joi";
+import { UserWithoutId } from "../services/authService";
 
-export const questionSchema = Joi.object<CreateQuestionData>({
-  question: Joi.string().required()
+export const userWithoutId = Joi.object<UserWithoutId>({
+  email: Joi.string().email().required(),
+  password: Joi.string().required().min(10)
 });
- */
