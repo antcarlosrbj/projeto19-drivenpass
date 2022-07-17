@@ -15,3 +15,12 @@ export async function listCredential(userId: number) {
     }
   })
 }
+
+export async function getCredential(userId: number, registerId: number) {
+  return prisma.registers.findFirst({
+    where: {userId, id: registerId, category: "credential"},
+    include: {
+      credential: true
+    }
+  })
+}

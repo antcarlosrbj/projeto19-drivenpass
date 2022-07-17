@@ -65,3 +65,16 @@ export async function listCredential(userId: number) {
     
     return listCredential;
 }
+
+export async function getCredential(userId: number, registerId: number) {
+    
+    const getCredential = await registerRepository.getCredential(userId, registerId);
+    if (!getCredential) {
+        return {res: false};
+    }
+
+    const cryptr = new Cryptr(process.env.CRYPTR_SECRET);
+    getCredential.credential[0].password = cryptr.decrypt(getCredential.credential[0].password);
+    
+    return {res: true, data: getCredential};
+}
