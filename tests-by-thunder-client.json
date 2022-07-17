@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "projeto19-drivenpass",
-    "dateExported": "2022-07-16T23:45:55.835Z",
+    "dateExported": "2022-07-17T19:52:56.826Z",
     "version": "1.1",
     "folders": [
         {
@@ -17,6 +17,27 @@
             "containerId": "",
             "created": "2022-07-16T23:11:08.397Z",
             "sortNum": 20000
+        },
+        {
+            "_id": "4a9fff6b-16c2-4879-88a7-8f075a8bf19a",
+            "name": "credential/create",
+            "containerId": "",
+            "created": "2022-07-17T13:10:07.998Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "e4ce39f2-b765-4451-9d78-98c5f3923ffe",
+            "name": "JOI",
+            "containerId": "4a9fff6b-16c2-4879-88a7-8f075a8bf19a",
+            "created": "2022-07-17T15:20:49.980Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "413ae00c-5a04-482d-8fed-8bb1e5e0a974",
+            "name": "Token",
+            "containerId": "4a9fff6b-16c2-4879-88a7-8f075a8bf19a",
+            "created": "2022-07-17T15:21:08.565Z",
+            "sortNum": 50000
         }
     ],
     "requests": [
@@ -73,6 +94,125 @@
             ]
         },
         {
+            "_id": "09eb2f21-343d-41da-9dba-11c9a8117627",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "e4ce39f2-b765-4451-9d78-98c5f3923ffe",
+            "name": "JOI url",
+            "url": "http://localhost:5000/credential/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2022-07-17T13:09:08.163Z",
+            "modified": "2022-07-17T15:20:57.854Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"url\": \"www.google.com\",\n\t\"user\": \"Antonio\",\n\t\"password\": \"123\",\n\t\"title\": \"Google\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9uaW9AYW50b25pby5jb20iLCJpYXQiOjE2NTgwNjM0MzEsImV4cCI6MTY1ODE0OTgzMX0.mV4ir29jO0clrAcoJbJMkv73FCpBTgqART9ekZiMcZA"
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"url\" must be a valid uri"
+                }
+            ]
+        },
+        {
+            "_id": "f77bc31c-f045-4f7a-a920-77b27e68d8b9",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "413ae00c-5a04-482d-8fed-8bb1e5e0a974",
+            "name": "Token empty",
+            "url": "http://localhost:5000/credential/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2022-07-17T13:50:07.182Z",
+            "modified": "2022-07-17T15:21:10.206Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"url\": \"http://www.google.com\",\n\t\"user\": \"Antonio\",\n\t\"password\": \"123\",\n\t\"title\": \"Google\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer"
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "Token is not allowed to be empty"
+                }
+            ]
+        },
+        {
+            "_id": "72708735-e262-482f-ae60-6cc553f9a443",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "413ae00c-5a04-482d-8fed-8bb1e5e0a974",
+            "name": "Token invalid signature",
+            "url": "http://localhost:5000/credential/create",
+            "method": "POST",
+            "sortNum": 12500,
+            "created": "2022-07-17T15:18:15.074Z",
+            "modified": "2022-07-17T15:25:14.196Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"url\": \"http://www.google.com\",\n\t\"user\": \"Antonio\",\n\t\"password\": \"123\",\n\t\"title\": \"Google\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9uaW9AYW50b25pby5jb20ifQ.6LhLvddC9UrHx88QgisbhwXvtV8_ruc78tmAuOa8Vec"
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "invalid signature"
+                }
+            ]
+        },
+        {
+            "_id": "fbaf17e4-0664-4e8e-8303-5a5786b094f0",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "413ae00c-5a04-482d-8fed-8bb1e5e0a974",
+            "name": "Token malformed token",
+            "url": "http://localhost:5000/credential/create",
+            "method": "POST",
+            "sortNum": 15000,
+            "created": "2022-07-17T15:22:34.294Z",
+            "modified": "2022-07-17T15:25:10.695Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"url\": \"http://www.google.com\",\n\t\"user\": \"Antonio\",\n\t\"password\": \"123\",\n\t\"title\": \"Google\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbGwiOiJhbnRvbmlvQGFudG9uaW8uY29tIn0.0BMJFGNhRW_pXPyOyCHPIYWkOgwZ_kZtNs9lcDej2n4"
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "Malformed token"
+                }
+            ]
+        },
+        {
             "_id": "f788074f-5f10-4c81-be02-4dc7438247e0",
             "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
             "containerId": "af94d22a-7590-4f66-8f52-c7990a13af19",
@@ -121,6 +261,36 @@
                     "custom": "",
                     "action": "equal",
                     "value": "\"password\" length must be at least 10 characters long"
+                }
+            ]
+        },
+        {
+            "_id": "e0ef6dec-4e34-426c-9ba2-8e9d1ddd05cb",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "e4ce39f2-b765-4451-9d78-98c5f3923ffe",
+            "name": "JOI user",
+            "url": "http://localhost:5000/credential/create",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2022-07-17T13:46:48.903Z",
+            "modified": "2022-07-17T15:20:58.810Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"url\": \"http://www.google.com\",\n\t\"user\": \"\",\n\t\"password\": \"123\",\n\t\"title\": \"Google\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9uaW9AYW50b25pby5jb20iLCJpYXQiOjE2NTgwNjM0MzEsImV4cCI6MTY1ODE0OTgzMX0.mV4ir29jO0clrAcoJbJMkv73FCpBTgqART9ekZiMcZA"
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"user\" is not allowed to be empty"
                 }
             ]
         },
@@ -177,6 +347,66 @@
             ]
         },
         {
+            "_id": "83611dd5-20aa-40c7-b694-c422597ec7c1",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "e4ce39f2-b765-4451-9d78-98c5f3923ffe",
+            "name": "JOI password",
+            "url": "http://localhost:5000/credential/create",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2022-07-17T13:47:32.915Z",
+            "modified": "2022-07-17T15:20:59.902Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"url\": \"http://www.google.com\",\n\t\"user\": \"Antonio\",\n\t\"password\": \"\",\n\t\"title\": \"Google\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9uaW9AYW50b25pby5jb20iLCJpYXQiOjE2NTgwNjM0MzEsImV4cCI6MTY1ODE0OTgzMX0.mV4ir29jO0clrAcoJbJMkv73FCpBTgqART9ekZiMcZA"
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"password\" is not allowed to be empty"
+                }
+            ]
+        },
+        {
+            "_id": "cade7dc2-63d4-488b-9dbd-6dc0eeb50546",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "4a9fff6b-16c2-4879-88a7-8f075a8bf19a",
+            "name": "Insert",
+            "url": "http://localhost:5000/credential/create",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2022-07-17T15:23:59.176Z",
+            "modified": "2022-07-17T19:34:02.611Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"url\": \"http://www.google.com\",\n\t\"user\": \"Antonio\",\n\t\"password\": \"123\",\n\t\"title\": \"{{#string}}\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9uaW9AYW50b25pby5jb20ifQ.sXhlBBQtNvbaLJsbqcEp6s0T3vGwJTWNLDXdPIB4y28"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "201"
+                }
+            ]
+        },
+        {
             "_id": "190ab6e7-d2f0-498a-afc8-dfbd1041f90d",
             "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
             "containerId": "af94d22a-7590-4f66-8f52-c7990a13af19",
@@ -225,6 +455,36 @@
                     "custom": "",
                     "action": "equal",
                     "value": "Invalid password"
+                }
+            ]
+        },
+        {
+            "_id": "b6761e5e-2a55-45aa-a751-04ea10d4f663",
+            "colId": "226db56a-7252-4d4a-a9f7-3599f658f066",
+            "containerId": "e4ce39f2-b765-4451-9d78-98c5f3923ffe",
+            "name": "JOI title",
+            "url": "http://localhost:5000/credential/create",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2022-07-17T13:48:45.956Z",
+            "modified": "2022-07-17T15:21:00.828Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\t\"url\": \"http://www.google.com\",\n\t\"user\": \"Antonio\",\n\t\"password\": \"123\",\n\t\"title\": \"\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFudG9uaW9AYW50b25pby5jb20iLCJpYXQiOjE2NTgwNjM0MzEsImV4cCI6MTY1ODE0OTgzMX0.mV4ir29jO0clrAcoJbJMkv73FCpBTgqART9ekZiMcZA"
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"title\" is not allowed to be empty"
                 }
             ]
         },

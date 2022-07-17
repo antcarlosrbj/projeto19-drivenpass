@@ -47,4 +47,17 @@ $ npm run dev
         "email": "antonio@antonio.com",
         "password": "1234567890"
     }
+
+
+- POST /credential/create
+    - Route to create a credential
+    - headers: {
+        "Authorization": "Bearer <TOKEN>"
+    }
+    - body: {
+        "url": "http://www.google.com",
+        "user": "Antonio",
+        "password": "123",
+        "title": "Google"
+    }
 ```

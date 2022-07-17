@@ -2,6 +2,7 @@ import { users } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import * as usersRepository from "../repositories/usersRepository.js";
+import * as commonRepository from "../repositories/commonRepository.js";
 import { userWithoutId } from "../schemas/authSchema.js";
 
 
@@ -31,7 +32,7 @@ export async function duplicateUser(user: UserWithoutId) {
 export async function insertIntoDatabase(user: UserWithoutId) {
 
     user.password = bcrypt.hashSync(user.password, 10)  
-    await usersRepository.insert(user);
+    await commonRepository.insert("users", user);
 
     return {res: true}
 }
@@ -59,5 +60,34 @@ export async function sendToken(user: UserWithoutId) {
     
     
     return token;
+    
+}
+
+export async function validateToken(token: string) {
+
+    let answer = {res: true, text: "", userId: 0};
+    let email = "";
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            answer = {res: false, text: err.message, userId: 0}
+        } else {
+            email = JSON.parse(JSON.stringify(decoded)).email;
+        }
+    });
+
+    if (!answer.res) {
+        return answer;
+    }
+
+    if (email) {
+        const userDatabase = await usersRepository.findByEmail(email)
+        if (!userDatabase) {
+            return {res: false, text: "Email not found", userId: 0}
+        }
+        return {res: true, userId: userDatabase.id, text: ""};
+    }
+    
+    return {res: false, text: "Malformed token", userId: 0};
     
 }
