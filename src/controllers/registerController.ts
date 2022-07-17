@@ -42,3 +42,32 @@ export async function credentialCreatePOST(req: Request, res: Response) {
 
   res.sendStatus(201);
 }
+
+
+export async function credentialListAllGET(req: Request, res: Response) {
+    
+  const {authorization} = req.headers;
+
+  if (!authorization) {
+    res.status(401).send("Token is not allowed to be empty");
+    return;
+  }
+
+  const [, token] = authorization.split(" ");
+  if (!token) {
+    res.status(401).send("Token is not allowed to be empty");
+    return;
+  }
+
+  const result = await authService.validateToken(token);
+  if (!result.res) {
+    res.status(401).send(result.text);
+    return;
+  }
+
+  const {userId} = result;
+
+  const listCredential = await registerService.listCredential(userId);
+
+  res.send(listCredential);
+}

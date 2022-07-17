@@ -55,3 +55,13 @@ export async function insertCredential(credentialWithUserId: CredentialWithUserI
 
     return {res: true, text: ""};
 }
+
+export async function listCredential(userId: number) {
+    
+    const listCredential = await registerRepository.listCredential(userId);
+
+    const cryptr = new Cryptr(process.env.CRYPTR_SECRET);
+    listCredential.forEach(e => e.credential[0].password = cryptr.decrypt(e.credential[0].password))
+    
+    return listCredential;
+}

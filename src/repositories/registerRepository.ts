@@ -6,3 +6,12 @@ export async function findDuplicateRegister(credentialWithUserId: CredentialWith
     where: {title: credentialWithUserId.title}
   });
 }
+
+export async function listCredential(userId: number) {
+  return prisma.registers.findMany({
+    where: {userId, category: "credential"},
+    include: {
+      credential: true
+    }
+  })
+}
