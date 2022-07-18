@@ -1,43 +1,40 @@
 import { Request, Response } from "express";
 import * as registerService from "../services/registerService.js";
-import * as authService from "../services/authService.js";
-import { toNamespacedPath } from "path/posix";
 
-export async function credentialCreatePOST(req: Request, res: Response) {
-  const credential: registerService.CredentialCreate = req.body;
+
+export async function createPOST(req: Request, res: Response) {
+
+  const category = req.url.split("/")[1];
+  const data = req.body;
   
   const {authorization} = req.headers;
 
-  if (!authorization) {
-    res.status(401).send("Token is not allowed to be empty");
-    return;
-  }
-
-  const [, token] = authorization.split(" ");
-  if (!token) {
-    res.status(401).send("Token is not allowed to be empty");
-    return;
-  }
-
-  const validateCredential = await registerService.validateCredential(credential);
-  if (!validateCredential.res) {
-    res.status(401).send(validateCredential.text);
-    return;
-  }
-
-  const result = await authService.validateToken(token);
-  if (!result.res) {
-    res.status(401).send(result.text);
-    return;
-  }
-
-  const {userId} = result;
-  const credentialWithUserId = {...credential, userId: userId}
   
 
-  const insertCredential = await registerService.insertCredential(credentialWithUserId);
-  if (!insertCredential.res) {
-    res.status(401).send(insertCredential.text);
+  const validate = await registerService.validate(category, data);
+  if (!validate.res) {
+    res.status(401).send(validate.text);
+    return;
+  }
+
+  const title = data.title;
+  delete data.title;
+
+  
+  
+  const verifyTokenResult = await registerService.verifyToken(authorization);
+  if (!verifyTokenResult.res) {
+    res.status(401).send(verifyTokenResult.text);
+    return;
+  }
+
+  const {userId} = verifyTokenResult;
+
+
+
+  const insertRegister = await registerService.insertRegister(category, data, title, userId);
+  if (!insertRegister.res) {
+    res.status(401).send(insertRegister.text);
     return;
   }
 
@@ -45,96 +42,90 @@ export async function credentialCreatePOST(req: Request, res: Response) {
 }
 
 
-export async function credentialListAllGET(req: Request, res: Response) {
-    
+
+export async function listAllGET(req: Request, res: Response) {
+  
+  
+  const category = req.url.split("/")[1];
   const {authorization} = req.headers;
 
-  if (!authorization) {
-    res.status(401).send("Token is not allowed to be empty");
+  
+
+  const verifyTokenResult = await registerService.verifyToken(authorization);
+  if (!verifyTokenResult.res) {
+    res.status(401).send(verifyTokenResult.text);
     return;
   }
 
-  const [, token] = authorization.split(" ");
-  if (!token) {
-    res.status(401).send("Token is not allowed to be empty");
-    return;
-  }
+  const {userId} = verifyTokenResult;
 
-  const result = await authService.validateToken(token);
-  if (!result.res) {
-    res.status(401).send(result.text);
-    return;
-  }
+  
 
-  const {userId} = result;
+  const listCredential = await registerService.listAll(category, userId);
 
-  const listCredential = await registerService.listCredential(userId);
+  
 
   res.send(listCredential);
 }
 
 
-export async function credentialIdGET(req: Request, res: Response) {
-    
+
+export async function listIdGET(req: Request, res: Response) {
+  
+  
+  const category = req.url.split("/")[1];
   const registerId = parseInt(req.params.id);
   const {authorization} = req.headers;
 
-  if (!authorization) {
-    res.status(401).send("Token is not allowed to be empty");
+  
+
+  const verifyTokenResult = await registerService.verifyToken(authorization);
+  if (!verifyTokenResult.res) {
+    res.status(401).send(verifyTokenResult.text);
     return;
   }
 
-  const [, token] = authorization.split(" ");
-  if (!token) {
-    res.status(401).send("Token is not allowed to be empty");
-    return;
-  }
+  const {userId} = verifyTokenResult;
 
-  const result = await authService.validateToken(token);
-  if (!result.res) {
-    res.status(401).send(result.text);
-    return;
-  }
+  
 
-  const {userId} = result;
-
-  const getCredential = await registerService.getCredential(userId, registerId);
-  if(!getCredential.res) {
+  const getRegister = await registerService.getRegister(category, userId, registerId);
+  if(!getRegister.res) {
     res.sendStatus(404);
   }
 
-  res.send(getCredential.data);
+  
+
+  res.send(getRegister.data);
 }
 
-export async function credentialIdDELETE(req: Request, res: Response) {
 
+
+export async function registerIdDELETE(req: Request, res: Response) {
+
+  
+  const category = req.url.split("/")[1];
   const registerId = parseInt(req.params.id);
   const {authorization} = req.headers;
 
-  if (!authorization) {
-    res.status(401).send("Token is not allowed to be empty");
+  
+
+  const verifyTokenResult = await registerService.verifyToken(authorization);
+  if (!verifyTokenResult.res) {
+    res.status(401).send(verifyTokenResult.text);
     return;
   }
 
-  const [, token] = authorization.split(" ");
-  if (!token) {
-    res.status(401).send("Token is not allowed to be empty");
-    return;
-  }
+  const {userId} = verifyTokenResult;
 
-  const result = await authService.validateToken(token);
-  if (!result.res) {
-    res.status(401).send(result.text);
-    return;
-  }
+  
 
-  const {userId} = result; // PEGAR ID
-
-
-  const deleteCredential = await registerService.deleteCredential(userId, registerId);
-  if(!deleteCredential) {
+  const deleteRegister = await registerService.deleteRegister(category, userId, registerId);
+  if(!deleteRegister) {
     res.sendStatus(404);
   }
 
+  
+  
   res.sendStatus(200);
 }
