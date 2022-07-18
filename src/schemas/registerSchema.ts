@@ -1,5 +1,4 @@
 import Joi from "joi";
-//import { CredentialCreate } from "../services/registerService";
 
 export type CredentialCreate = {
   url: string;

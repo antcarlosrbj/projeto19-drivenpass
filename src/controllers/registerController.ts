@@ -123,6 +123,7 @@ export async function registerIdDELETE(req: Request, res: Response) {
   const deleteRegister = await registerService.deleteRegister(category, userId, registerId);
   if(!deleteRegister) {
     res.sendStatus(404);
+    return;
   }
 
   
