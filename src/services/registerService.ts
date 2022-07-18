@@ -78,3 +78,28 @@ export async function getCredential(userId: number, registerId: number) {
     
     return {res: true, data: getCredential};
 }
+
+export async function deleteCredential(userId: number, registerId: number) {
+    
+    const searchRegister = await registerRepository.searchRegister(userId, registerId);
+    if (!searchRegister) {
+        return false;
+    }
+
+    const searchCredential = await registerRepository.searchCredential(registerId);
+    if (!searchCredential) {
+        return false;
+    }
+
+    const deleteCredential = await registerRepository.deleteCredential(searchCredential.id);
+    if (!deleteCredential) {
+        return false;
+    }
+
+    const deleteRegister = await registerRepository.deleteRegister(registerId);
+    if (!deleteRegister) {
+        return false;
+    }
+    
+    return true;
+}

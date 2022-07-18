@@ -105,3 +105,36 @@ export async function credentialIdGET(req: Request, res: Response) {
 
   res.send(getCredential.data);
 }
+
+export async function credentialIdDELETE(req: Request, res: Response) {
+
+  const registerId = parseInt(req.params.id);
+  const {authorization} = req.headers;
+
+  if (!authorization) {
+    res.status(401).send("Token is not allowed to be empty");
+    return;
+  }
+
+  const [, token] = authorization.split(" ");
+  if (!token) {
+    res.status(401).send("Token is not allowed to be empty");
+    return;
+  }
+
+  const result = await authService.validateToken(token);
+  if (!result.res) {
+    res.status(401).send(result.text);
+    return;
+  }
+
+  const {userId} = result; // PEGAR ID
+
+
+  const deleteCredential = await registerService.deleteCredential(userId, registerId);
+  if(!deleteCredential) {
+    res.sendStatus(404);
+  }
+
+  res.sendStatus(200);
+}
